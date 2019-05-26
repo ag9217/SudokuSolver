@@ -1,2 +1,2 @@
 # SudokuSolver
-Naive attempt at creating a sudoku solver
+A brute force sudoku solver

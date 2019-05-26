@@ -1,58 +1,8 @@
 #include <iostream>
+#include "..\include\sNumber.h"
 using namespace std;
 
-class sNumber
-{
-private:
-    int data = 0;
-    int state = 0;
-
-public:
-    //constructor & destructor
-    sNumber();
-    sNumber(int a);
-    ~sNumber();
-
-    //access functions
-    int setNumber(int b);
-    int setState(int c);
-    int getNumber();
-    int getState();
-};
-
-sNumber::sNumber()
-{
-}
-
-sNumber::sNumber(int a)
-{
-    data = a;
-}
-
-sNumber::~sNumber()
-{
-}
-
-int sNumber::setNumber(int b)
-{
-    data = b;
-}
-
-int sNumber::getNumber()
-{
-    return data;
-}
-
-int sNumber::setState(int c)
-{
-    state = c;
-}
-
-int sNumber::getState()
-{
-    return state;
-}
-
+//function prototypes
 void printboard(sNumber *board[11][11]);
 
 int main()
@@ -62,12 +12,17 @@ int main()
 
     sNumber *board[11][11];
 
-    //filling board with zeroes and border with 10's
+    //filling board with zeroes and border with 0's
     for (int i = 0; i < 11; i++)
     {
         for (int j = 0; j < 11; j++)
         {
-            board[i][j] = new sNumber(0);
+            if(i == 0 || i == 10 || j == 0 || j == 10) //creating special case for border
+            {
+                board[i][j] = new sNumber(0);
+                continue;
+            }
+            board[i][j] = new sNumber(1);
         }
     }
 
@@ -79,7 +34,7 @@ int main()
     }
 }
 
-void printboard(sNumber *board[11][11])
+void printboard(sNumber *board[11][11]) //IMPLEMENT INTO CLASS
 {
     for (int i = 0; i < 11; i++)
     {
