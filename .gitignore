@@ -1,0 +1,10 @@
+# Ignore the build and lib dirs
+build
+lib/*
+.vscode
+
+# Ignore any executables
+bin/*
+
+# Ignore files with extension
+*.exe
