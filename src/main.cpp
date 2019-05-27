@@ -4,6 +4,9 @@
 #include "..\include\board.h" //sudoku board class
 using namespace std;
 
+//function prototypes
+void configinput();
+
 int main()
 {
     bool solved = 0;
@@ -15,4 +18,12 @@ int main()
     {
         return 0;
     }
+}
+
+void configiniput()
+{
+    //delcaring variables
+    ifstream sudokuc;
+
+    sudokuc.open("config.txt");
 }
