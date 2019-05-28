@@ -11,7 +11,7 @@ int main()
 
     Board myboard;
     myboard.set();
-    myboard.draw();
+    myboard.draw(); //drawing board
 
     while (!solved)
     {

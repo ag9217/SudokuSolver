@@ -43,9 +43,9 @@ Board::~Board()
 
 void Board::draw()
 {
-    for (int i = 0; i < 11; i++)
+    for (int i = 1; i < 10; i++)
     {
-        for (int j = 0; j < 11; j++)
+        for (int j = 1; j < 10; j++)
         {
             cout << "|" << (*board[i][j]).getNumber();
         }
@@ -60,7 +60,6 @@ void Board::set()
 
     //temp variables
     int itemp;
-
 
     for(int i = 1; i < 10; i++) // configurating board
     {
