@@ -67,6 +67,7 @@ void Board::set()
         {
             sconfig >> itemp;
             (*board[i][j]).setNumber(itemp);
+            (*board[i][j]).setConf(1);
         }
     }
 }
