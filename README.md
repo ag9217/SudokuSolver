@@ -1,4 +1,4 @@
 # SudokuSolver
-A brute force sudoku solver
+A brute force + object orientated sudoku solver
 
 Instructions coming soon
