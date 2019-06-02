@@ -11,6 +11,7 @@ class Board
         //functionality
         void draw();
         void set();
+        sNumber* getBoardP(int i, int j);
 };
 
 Board::Board()
@@ -70,4 +71,9 @@ void Board::set()
             (*board[i][j]).setConf(1);
         }
     }
+}
+
+sNumber* Board::getBoardP(int i, int j)
+{
+    return board[i][j];
 }
