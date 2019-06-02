@@ -16,5 +16,7 @@ int main()
     while (!solved)
     {
         return 0;
+
+        //algorithm goes here
     }
 }
