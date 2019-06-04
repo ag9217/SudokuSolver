@@ -44,14 +44,15 @@ int main()
                     }
                 }
 
-                if((*myboard.getBoardP(i,j)).getConf())
+                else if(myboard.getBoardN(i,j).getSolved())
                 {
+                    tempSolution = 1;
                     continue;
                 }
 
                 else if(isValid(i,j,myboard,tempSolution))
                 {
-                    (*myboard.getBoardP(i,j)).setNumber(tempSolution);
+                    myboard.getBoardN(i,j).setNumber(tempSolution);
                     tempSolution = 1;    
                 }
                 
@@ -66,6 +67,7 @@ int main()
         cout << "solved" << endl;
         solved = 1;
     }
+    
 
     return 0;
 }
@@ -74,7 +76,7 @@ int checkColumn(int col, Board board, int tempSol)
 {
     for(int i = 0; i < 9; i++)
     {
-        if((*board.getBoardP(i, col)).getNumber() == tempSol)
+        if(board.getBoardN(i, col).getNumber() == tempSol)
         {
             //cout << "same number in column" << endl;
             return 0; //check failed
@@ -87,7 +89,7 @@ int checkRow(int row, Board board, int tempSol)
 {
     for(int i = 0; i < 9; i++)
     {
-        if((*board.getBoardP(row, i)).getNumber() == tempSol)
+        if(board.getBoardN(row, i).getNumber() == tempSol)
         {
             //cout << "same number in row" << endl;
             return 0; //check failed
@@ -105,7 +107,7 @@ int checkSquare(int row, int col, Board board, int tempSol)
     {
         for(int j = squareTopX; j < squareTopX + 3; j++)
         {
-            if((*board.getBoardP(i,j)).getNumber() == tempSol)
+            if(board.getBoardN(i,j).getNumber() == tempSol)
             {
                 //cout << "same number in square" << endl;
                 return 0; //check failed

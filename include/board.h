@@ -2,7 +2,7 @@ using namespace std;
 class Board
 {
     protected:
-        sNumber* board[9][9];
+        sNumber board[9][9];
     public:
         //constructor & destructor
         Board();
@@ -11,7 +11,7 @@ class Board
         //functionality
         void draw();
         void set();
-        sNumber* getBoardP(int i, int j);
+        sNumber getBoardN(int i, int j);
 };
 
 Board::Board()
@@ -21,20 +21,13 @@ Board::Board()
     {
         for (int j = 0; j < 9; j++)
         {
-            board[i][j] = new sNumber(1);
+            board[i][j].setNumber(0);
         }
     }
 }
 
 Board::~Board()
 {
-        for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            delete board[i][j];
-        }
-    }
 }
 
 void Board::draw()
@@ -43,7 +36,7 @@ void Board::draw()
     {
         for (int j = 0; j < 9; j++)
         {
-            cout << "|" << (*board[i][j]).getNumber();
+            cout << "|" << board[i][j].getNumber();
         }
         cout << "|" << endl;
     }
@@ -62,21 +55,21 @@ void Board::set()
         for(int j = 0; j < 9; j++)
         {
             sconfig >> itemp;
-            (*board[i][j]).setNumber(itemp);
+            board[i][j].setNumber(itemp);
             if(itemp == 0)
             {
-                (*board[i][j]).setConf(0);
+                board[i][j].setSolved(0);
             }
             else
             {
-                (*board[i][j]).setConf(1);
+                board[i][j].setSolved(1);
             }
                         
         }
     }
 }
 
-sNumber* Board::getBoardP(int i, int j)
+sNumber Board::getBoardN(int i, int j)
 {
     return board[i][j];
 }

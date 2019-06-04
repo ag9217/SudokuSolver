@@ -3,7 +3,6 @@ class sNumber
 private:
     int data = 0;
     int state = 0;
-    bool conf = 0; //to know if number is from config, so we do not alter data
     bool solved = 0;
 
 public:
@@ -15,11 +14,9 @@ public:
     //access functions
     int setNumber(int b);
     int setState(int c);
-    int setConf(int a);
     bool setSolved(bool b);
     int getNumber();
     int getState();
-    int getConf();
     bool getSolved();
 
     //functionality
@@ -56,16 +53,6 @@ int sNumber::setState(int c)
 int sNumber::getState()
 {
     return state;
-}
-
-int sNumber::setConf(int a)
-{
-    conf = a;
-}
-
-int sNumber::getConf()
-{
-    return conf;
 }
 
 bool sNumber::setSolved(bool b)
