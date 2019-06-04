@@ -15,11 +15,11 @@ public:
     //access functions
     int setNumber(int b);
     int setState(int c);
-    bool setConf(bool a);
+    int setConf(int a);
     bool setSolved(bool b);
     int getNumber();
     int getState();
-    bool getConf();
+    int getConf();
     bool getSolved();
 
     //functionality
@@ -58,12 +58,12 @@ int sNumber::getState()
     return state;
 }
 
-bool sNumber::setConf(bool a)
+int sNumber::setConf(int a)
 {
     conf = a;
 }
 
-bool sNumber::getConf()
+int sNumber::getConf()
 {
     return conf;
 }

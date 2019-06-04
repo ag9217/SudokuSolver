@@ -10,27 +10,73 @@ using namespace std;
 int checkColumn(int col, Board board, int tempSol);
 int checkRow(int row, Board board, int tempSol);
 int checkSquare(int row, int col, Board board, int tempSol);
+int isValid(int row, int col, Board board, int tempSol);
 
 int main()
 {
     bool solved = 0;
-    int tempSolution = 2;
+    int tempSolution = 1;
 
     Board myboard;
     myboard.set();
     myboard.draw();
 
-    checkSquare(5,5, myboard, tempSolution);
+    while(!solved)
+    {
+        int i = 0;
+        int j = 0;
+        for(i = 0; i < 9; i++)
+        {
+            for(j = 0; j < 9; j++)
+            {
+                if(tempSolution == 10) //backtrack
+                {
+                    if(j == 0)
+                    {
+                        i--;
+                        j = 7; // this value will be added with 1
+                        tempSolution = 1;
+                    }
+                    else
+                    {
+                        j = j - 2;
+                        tempSolution = 1;
+                    }
+                }
+
+                if((*myboard.getBoardP(i,j)).getConf())
+                {
+                    continue;
+                }
+
+                else if(isValid(i,j,myboard,tempSolution))
+                {
+                    (*myboard.getBoardP(i,j)).setNumber(tempSolution);
+                    tempSolution = 1;    
+                }
+                
+                else
+                {
+                    tempSolution++;
+                }
+            }
+        }
+        cout << "-------------------" << endl;
+        myboard.draw();
+        cout << "solved" << endl;
+        solved = 1;
+    }
+
     return 0;
 }
 
 int checkColumn(int col, Board board, int tempSol)
 {
-    for(int i = 1; i < 10; i++)
+    for(int i = 0; i < 9; i++)
     {
         if((*board.getBoardP(i, col)).getNumber() == tempSol)
         {
-            cout << "same number in column" << endl;
+            //cout << "same number in column" << endl;
             return 0; //check failed
         }
     }
@@ -39,11 +85,11 @@ int checkColumn(int col, Board board, int tempSol)
 
 int checkRow(int row, Board board, int tempSol)
 {
-    for(int i = 1; i < 10; i++)
+    for(int i = 0; i < 9; i++)
     {
         if((*board.getBoardP(row, i)).getNumber() == tempSol)
         {
-            cout << "same number in row" << endl;
+            //cout << "same number in row" << endl;
             return 0; //check failed
         }
     }
@@ -52,18 +98,33 @@ int checkRow(int row, Board board, int tempSol)
 
 int checkSquare(int row, int col, Board board, int tempSol)
 {
-    int squareTopY = 3*((row-1)/3);
-    int squareTopX = 3*((col-1)/3);
+    int squareTopY = 3*(row/3);
+    int squareTopX = 3*(col/3);
 
-    for(int i = squareTopY+1; i < squareTopY + 4; i++)
+    for(int i = squareTopY; i < squareTopY + 3; i++)
     {
-        for(int j = squareTopX+1; j < squareTopX + 4; j++)
+        for(int j = squareTopX; j < squareTopX + 3; j++)
         {
             if((*board.getBoardP(i,j)).getNumber() == tempSol)
             {
-                cout << "same number in square" << endl;
+                //cout << "same number in square" << endl;
                 return 0; //check failed
             }
         }
     }
+    return 1;
+}
+
+int isValid(int row, int col, Board board, int tempSol)
+{
+    if(checkColumn(col, board, tempSol) && checkRow(row, board, tempSol) && checkSquare(row,col, board, tempSol))
+    {
+        return 1;
+    }
+
+    else
+    {
+        return 0;
+    }
+    
 }
