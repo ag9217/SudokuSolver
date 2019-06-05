@@ -22,7 +22,7 @@ int main()
     int refBoard[9][9];
 
     // -----CONFIGURATING BOARD-----
-    ifstream sconfig("config\\config.txt");
+    ifstream sconfig("..\\config\\config.txt");
 
     //temp variables
     int itemp;
@@ -127,6 +127,8 @@ int main()
         cout << "-------------------" << endl;
         printS(board);
         cout << "Backtracks: " << backtracks << endl;
+
+        system("pause");
     }
 
     return 0;
