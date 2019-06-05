@@ -13,8 +13,8 @@ int main()
     myboard.set();
     myboard.draw(); //drawing board
 
-    while (!solved)
-    {
-        return 0;
-    }
+    sNumber a(5);
+    cout << (a.getNumber()) << endl;
+
+    return 0;
 }

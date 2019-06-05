@@ -1,10 +1,8 @@
 class sNumber
 {
-private:
+protected:
     int data = 0;
-    int state = 0;
-    bool conf = 0; //to know if number is from config, so we do not alter data
-    bool solved = 0;
+    int conf = 0;
 
 public:
     //constructor & destructor
@@ -14,13 +12,9 @@ public:
 
     //access functions
     int setNumber(int b);
-    int setState(int c);
-    bool setConf(bool a);
-    bool setSolved(bool b);
+    int setConf(int c);
     int getNumber();
-    int getState();
-    bool getConf();
-    bool getSolved();
+    int getConf();
 
     //functionality
 };
@@ -48,32 +42,12 @@ int sNumber::getNumber()
     return data;
 }
 
-int sNumber::setState(int c)
+int sNumber::setConf(int c)
 {
-    state = c;
+    conf = c;
 }
 
-int sNumber::getState()
-{
-    return state;
-}
-
-bool sNumber::setConf(bool a)
-{
-    conf = a;
-}
-
-bool sNumber::getConf()
+int sNumber::getConf()
 {
     return conf;
-}
-
-bool sNumber::setSolved(bool b)
-{
-    solved = b;
-}
-
-bool sNumber::getSolved()
-{
-    return solved;
 }

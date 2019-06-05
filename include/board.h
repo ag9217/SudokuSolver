@@ -2,7 +2,7 @@ using namespace std;
 class Board
 {
     protected:
-        sNumber* board[11][11];
+        sNumber board[9][9];
     public:
         //constructor & destructor
         Board();
@@ -11,34 +11,24 @@ class Board
         //functionality
         void draw();
         void set();
+        sNumber get(int i, int j);
 };
 
 Board::Board()
 {
-    //filling board with zeroes and border with 10's
-    for (int i = 0; i < 11; i++)
+    //filling board with zeroes
+    for (int i = 0; i < 9; i++)
     {
-        for (int j = 0; j < 11; j++)
+        for (int j = 0; j < 9; j++)
         {
-            if(i == 0 || i == 10 || j == 0 || j == 10) //creating special case for border
-            {
-                board[i][j] = new sNumber(10);
-                continue;
-            }
-            board[i][j] = new sNumber(1);
+            board[i][j].setNumber(0);
         }
     }
 }
 
 Board::~Board()
 {
-        for (int i = 0; i < 11; i++)
-    {
-        for (int j = 0; j < 11; j++)
-        {
-            delete board[i][j];
-        }
-    }
+
 }
 
 void Board::draw()
@@ -47,7 +37,7 @@ void Board::draw()
     {
         for (int j = 1; j < 10; j++)
         {
-            cout << "|" << (*board[i][j]).getNumber();
+            cout << "|" << board[i][j].getNumber();
         }
         cout << "|" << endl;
     }
@@ -66,8 +56,21 @@ void Board::set()
         for(int j = 1; j < 10; j++)
         {
             sconfig >> itemp;
-            (*board[i][j]).setNumber(itemp);
-            (*board[i][j]).setConf(1);
+            if(itemp == 0)
+            {
+                board[i][j].setNumber(itemp);
+                board[i][j].setConf(0);
+            }
+            else
+            {
+                board[i][j].setNumber(itemp);
+                board[i][j].setConf(1);
+            }
         }
     }
+}
+
+sNumber Board::get(int i, int j)
+{
+    return board[i][j];
 }
