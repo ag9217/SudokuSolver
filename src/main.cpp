@@ -128,10 +128,13 @@ int main()
         printS(board);
         cout << "Backtracks: " << backtracks << endl;
 
-        system("pause");
-    }
+         do 
+        {
+            cout << '\n' << "Press enter to exit...";
+        } while (cin.get() != '\n');
 
-    return 0;
+        return 0;
+    }
 }
 
 int checkColumn(int col, int board[][9], int tempSol)
