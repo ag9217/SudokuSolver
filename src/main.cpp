@@ -22,7 +22,7 @@ int main()
     int refBoard[9][9];
 
     // -----CONFIGURATING BOARD-----
-    ifstream sconfig("..\\config\\config.txt");
+    ifstream sconfig("../config/config.txt");
 
     //temp variables
     int itemp;
