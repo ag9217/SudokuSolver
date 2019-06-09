@@ -46,6 +46,21 @@ int main()
 
     solveButton->connect("pressed", solveSignal, std::ref(editBoxes));
 
+    // -----CONFIGURATING BOARD-----
+    ifstream sconfig("../config/config.txt");
+
+    //temp variables
+    int itemp;
+
+    for(int i = 0; i < 9; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            sconfig >> itemp; //reading numbers from config file
+            editBoxes[j][i]->setText(std::to_string(itemp));
+        }
+    }
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -169,24 +184,6 @@ int solveBoard(int board[9][9],tgui::EditBox::Ptr editBoxes[9][9])
     int backtracked = 0; //checking if a backtrack has been done
     int backtracks = 0; //counting number of backtracks
     int refBoard[9][9];
-
-    /*
-    // -----CONFIGURATING BOARD-----
-    ifstream sconfig("../config/config.txt");
-
-    //temp variables
-    int itemp;
-
-    for(int i = 0; i < 9; i++)
-    {
-        for(int j = 0; j < 9; j++)
-        {
-            sconfig >> itemp; //reading numbers from config file
-            board[i][j] = itemp;
-            if(itemp == 0);              
-        }
-    }
-    */
 
     // -----COPYING BOARD TO REFBOARD-----
     //This is a board to check whether a number is meant to be altered or not
