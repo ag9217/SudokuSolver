@@ -24,3 +24,6 @@ To run the program:
 ```
 ./sudoku
 ```
+# Screenshots
+
+![alt text](https://i.imgur.com/o11DTdt.png "Logo Title Text 1")
