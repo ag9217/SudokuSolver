@@ -11,7 +11,6 @@ int checkSquare(int row, int col, int board[][9], int tempSol);
 int isValid(int row, int col, int board[][9], int tempSol);
 void printS(int board[][9]);
 void solveSignal(tgui::EditBox::Ptr editBoxes[9][9]);
-void clearSignal(tgui::EditBox::Ptr editBoxes[9][9]);
 int solveBoard(int board[9][9], tgui::EditBox::Ptr editBoxes[9][9]);
 
 int main()
@@ -22,8 +21,8 @@ int main()
 
     //Solve Button
     tgui::Button::Ptr solveButton = tgui::Button::create();
-    solveButton->setPosition(0,300);
-    solveButton->setSize(300,75);
+    solveButton->setPosition(0,270);
+    solveButton->setSize(270,105);
     solveButton->setText("Solve");
     gui.add(solveButton, "solvebutton");
 
@@ -46,14 +45,6 @@ int main()
     }
 
     solveButton->connect("pressed", solveSignal, std::ref(editBoxes));
-
-    //clear button
-    tgui::Button::Ptr clearButton = tgui::Button::create();
-    clearButton->setPosition(0,270);
-    clearButton->setSize(300,30);
-    clearButton->setText("Clear");
-    gui.add(clearButton, "solvebutton");
-    clearButton->connect("pressed", clearSignal, std::ref(editBoxes));
 
     // -----CONFIGURATING BOARD-----
     ifstream sconfig("../config/config.txt");
@@ -153,20 +144,6 @@ void printS(int board[][9])
         }
         std::cout << "|" << endl;
     }
-}
-
-void clearSignal(tgui::EditBox::Ptr editBoxes[9][9])
-{
-    editBoxes[i][j] = tgui::EditBox::create();
-    editBoxes[i][j]->setSize(30,30);
-    editBoxes[i][j]->setMaximumCharacters(1);
-    editBoxes[i][j]->setAlignment(tgui::EditBox::Alignment::Center);
-    editBoxes[i][j]->setPosition(0 + 30 * i, 0 + 30 * j);
-
-    std::string si = std::to_string(i);
-    std::string sj = std::to_string(j);
-
-    gui.add(editBoxes[i][j], si + sj);
 }
 
 void solveSignal(tgui::EditBox::Ptr editBoxes[9][9])
