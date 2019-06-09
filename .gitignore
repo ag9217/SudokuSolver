@@ -8,3 +8,4 @@ bin/*
 
 # Ignore files with extension
 *.exe
+*.out
