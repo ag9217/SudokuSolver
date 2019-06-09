@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <TGUI/TGUI.hpp>
 using namespace std;
 
 //function prototypes
@@ -8,19 +10,167 @@ int checkRow(int row, int board[][9], int tempSol);
 int checkSquare(int row, int col, int board[][9], int tempSol);
 int isValid(int row, int col, int board[][9], int tempSol);
 void printS(int board[][9]);
-
+void solveSignal(tgui::EditBox::Ptr editBoxes[9][9]);
+int solveBoard(int board[9][9], tgui::EditBox::Ptr editBoxes[9][9]);
 
 int main()
 {
+    //------------------GUI-------------------
+    sf::RenderWindow window{{270, 375}, "SudokuSolver", sf::Style::Titlebar | sf::Style::Close};
+    tgui::Gui gui{window}; // Create the gui and attach it to the window
+
+    //Solve Button
+    tgui::Button::Ptr solveButton = tgui::Button::create();
+    solveButton->setPosition(0,270);
+    solveButton->setSize(270,105);
+    solveButton->setText("Solve");
+    gui.add(solveButton, "solvebutton");
+
+    tgui::EditBox::Ptr editBoxes[9][9]; //textbox 2D-array
+    for(unsigned int i = 0; i < 9; i++) //textboxes
+    {
+        for(unsigned int j = 0; j < 9; j++)
+        {
+            editBoxes[i][j] = tgui::EditBox::create();
+            editBoxes[i][j]->setSize(30,30);
+            editBoxes[i][j]->setMaximumCharacters(1);
+            editBoxes[i][j]->setAlignment(tgui::EditBox::Alignment::Center);
+            editBoxes[i][j]->setPosition(0 + 30 * i, 0 + 30 * j);
+
+            std::string si = std::to_string(i);
+            std::string sj = std::to_string(j);
+
+            gui.add(editBoxes[i][j], si + sj);
+        }
+    }
+
+    solveButton->connect("pressed", solveSignal, std::ref(editBoxes));
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+            
+            gui.handleEvent(event); // Pass the event to the widgets
+        }
+
+        window.clear();
+        gui.draw(); // Draw all widgets
+        window.display();
+    }
+}
+
+int checkColumn(int col, int board[][9], int tempSol)
+{
+    for(int i = 0; i < 9; i++)
+    {
+        if(board[i][col] == tempSol)
+        {
+            return 0; //check failed
+        }
+    }
+    return 1; //what will be return if there are no numbers the same as tempSol
+}
+
+int checkRow(int row, int board[][9], int tempSol)
+{
+    for(int i = 0; i < 9; i++)
+    {
+        if(board[row][i] == tempSol)
+        {
+            return 0; //check failed
+        }
+    }
+    return 1; //what will be return if there are no numbers the same as tempSol
+}
+
+int checkSquare(int row, int col, int board[][9], int tempSol)
+{
+    int squareTopY = 3*(row/3);
+    int squareTopX = 3*(col/3);
+
+    for(int i = squareTopY; i < squareTopY + 3; i++)
+    {
+        for(int j = squareTopX; j < squareTopX + 3; j++)
+        {
+            if(board[i][j] == tempSol)
+            {
+                return 0; //check failed
+            }
+        }
+    }
+    return 1;
+}
+
+int isValid(int row, int col, int board[][9], int tempSol)
+{
+    if(checkColumn(col, board, tempSol) && checkRow(row, board, tempSol) && checkSquare(row,col, board, tempSol))
+    {
+        return 1;
+    }
+
+    else
+    {
+        return 0;
+    }
+    
+}
+
+void printS(int board[][9])
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            std::cout << "|" << board[i][j];
+        }
+        std::cout << "|" << endl;
+    }
+}
+
+void solveSignal(tgui::EditBox::Ptr editBoxes[9][9])
+{
+    std::string temp;
+    std::string temp1;
+    int itemp;
+    int board[9][9];
+
+    //resetting board
+    for(unsigned int i = 0; i < 9; i++)
+    {
+        for(unsigned int j = 0; j < 9; j++)
+        {
+            board[i][j] = 0;
+        }
+    }
+
+    for(unsigned int i = 0; i < 9; i++)
+    {
+        for(unsigned int j = 0; j < 9; j++)
+        {
+            temp = editBoxes[j][i]->getText(); //board is flipped when putting in data from gui
+            itemp = stoi(temp);
+
+            board[i][j] = itemp;
+        }
+    }
+    solveBoard(board, editBoxes);
+}
+
+int solveBoard(int board[9][9],tgui::EditBox::Ptr editBoxes[9][9])
+{
+    //------------------SOLVING SUDOKU-------------------
     //delcaring variables
     bool solved = 0;
     int tempSolution = 1;
     int backtracked = 0; //checking if a backtrack has been done
     int backtracks = 0; //counting number of backtracks
-
-    int board[9][9];
     int refBoard[9][9];
 
+    /*
     // -----CONFIGURATING BOARD-----
     ifstream sconfig("../config/config.txt");
 
@@ -36,6 +186,7 @@ int main()
             if(itemp == 0);              
         }
     }
+    */
 
     // -----COPYING BOARD TO REFBOARD-----
     //This is a board to check whether a number is meant to be altered or not
@@ -124,86 +275,19 @@ int main()
 
         solved = 1;
         // -----PRINTING SOLVED BOARD-----
-        cout << "-------------------" << endl;
+        std::cout << "-------------------" << endl;
         printS(board);
-        cout << "Backtracks: " << backtracks << endl;
+        std::cout << "Backtracks: " << backtracks << endl;
 
-         do 
+        for(unsigned int i = 0; i < 9; i++)
         {
-            cout << '\n' << "Press enter to exit...";
-        } while (cin.get() != '\n');
-
-        return 0;
-    }
-}
-
-int checkColumn(int col, int board[][9], int tempSol)
-{
-    for(int i = 0; i < 9; i++)
-    {
-        if(board[i][col] == tempSol)
-        {
-            //cout << "same number in column" << endl;
-            return 0; //check failed
-        }
-    }
-    return 1; //what will be return if there are no numbers the same as tempSol
-}
-
-int checkRow(int row, int board[][9], int tempSol)
-{
-    for(int i = 0; i < 9; i++)
-    {
-        if(board[row][i] == tempSol)
-        {
-            //cout << "same number in row" << endl;
-            return 0; //check failed
-        }
-    }
-    return 1; //what will be return if there are no numbers the same as tempSol
-}
-
-int checkSquare(int row, int col, int board[][9], int tempSol)
-{
-    int squareTopY = 3*(row/3);
-    int squareTopX = 3*(col/3);
-
-    for(int i = squareTopY; i < squareTopY + 3; i++)
-    {
-        for(int j = squareTopX; j < squareTopX + 3; j++)
-        {
-            if(board[i][j] == tempSol)
+            for(unsigned int j = 0; j < 9; j++)
             {
-                //cout << "same number in square" << endl;
-                return 0; //check failed
+                editBoxes[i][j]->setText(std::to_string(board[j][i])); //editBoxes is flipped
             }
         }
-    }
-    return 1;
-}
-
-int isValid(int row, int col, int board[][9], int tempSol)
-{
-    if(checkColumn(col, board, tempSol) && checkRow(row, board, tempSol) && checkSquare(row,col, board, tempSol))
-    {
         return 1;
     }
 
-    else
-    {
-        return 0;
-    }
-    
-}
-
-void printS(int board[][9])
-{
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            cout << "|" << board[i][j];
-        }
-        cout << "|" << endl;
-    }
+    return 0;
 }
