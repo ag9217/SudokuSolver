@@ -1,7 +1,7 @@
 # SudokuSolver
 Graphical Sudoku Solver written in C++ with SFML/TGUI. The solver uses a bruteforce algorithm to solve Sudoku puzzles.
 
-# Usage
+## Usage
 In order to run the the solver, [SFML](https://www.sfml-dev.org/) and [TGUI](https://tgui.eu/) need be installed. In order to install the libraries on Linux, run the following commands:
 
 To install SFML
@@ -24,6 +24,6 @@ To run the program:
 ```
 ./sudoku
 ```
-# Screenshots
+## Screenshots
 
 ![alt text](https://i.imgur.com/o11DTdt.png "Logo Title Text 1")
