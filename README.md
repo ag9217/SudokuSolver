@@ -1,7 +1,7 @@
 # SudokuSolver
 Graphical Sudoku Solver written in C++ with SFML/TGUI. The solver uses a bruteforce algorithm to solve Sudoku puzzles.
 
-## Side-Note
+## Side Note
 My main motivation behind this project was to strengthen on my C++ knowledge and also try using non-standard libraries such as SFML and TGUI. It was refreshing to finally see something programmed in C++ have its own window and graphics. SFML was fun to use and I will hopefully use this library in future project.
 
 ## Usage
