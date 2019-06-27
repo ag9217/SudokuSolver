@@ -7,7 +7,7 @@ My main motivation behind this project was to strengthen on my C++ knowledge and
 ## Usage
 The program can be used by either configurating the config file in the config folder or by using the GUI.
 
-In order to run the the solver, [SFML](https://www.sfml-dev.org/) and [TGUI](https://tgui.eu/) need be installed. In order to install the libraries on Linux, run the following commands:
+In order to run the the solver, [SFML](https://www.sfml-dev.org/) and [TGUI](https://tgui.eu/) need be installed. In order to install the libraries on Ubuntu, run the following commands:
 
 To install SFML
 ```
