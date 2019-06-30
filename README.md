@@ -30,6 +30,6 @@ To run the program:
 ./sudoku
 ```
 
-## Screenshots
+## Images
 
 ![alt text](https://i.imgur.com/o11DTdt.png "Logo Title Text 1")
